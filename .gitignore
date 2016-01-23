@@ -1,0 +1,15 @@
+*.py[co]
+*.sw[po]
+*.bak
+*.orig
+*~
+*.log
+*.egg-info
+.Rhistory
+.project
+.pydevproject
+.spyderworkspace
+venv/
+virtenv/
+dist/
+build/
