@@ -9,7 +9,8 @@ from __future__ import division
 from pandas import DataFrame
 import pandas as pd
 import numpy as np
-from simulate import cornersimulator
+from simulate import corner_spread
+
 pd.set_option('precision', 2)
 
 # Read corner data
@@ -32,16 +33,16 @@ team_B = 'Chelsea'
 if team_A in team_list.values and team_B in team_list.values:
     data = data[(data['HomeTeam'] == team_A) & (data['AwayTeam'] == team_B)]
 
-data.loc[:,'CS'] = data[['HC','AC']].sum(1)
+data.loc[:, 'CS'] = data[['HC', 'AC']].sum(1)
 period = len(data.CS)
-data.loc[:,'C_CS'] = pd.rolling_mean(data.CS, period, 1)
+data.loc[:, 'C_CS'] = pd.rolling_mean(data.CS, period, 1)
 
 datatest = data[:-1]
 last_match = datatest.tail(1)
 next_match = data.tail(1)
 
 probmat = np.array([[0.0] * 9] * 9)
-#matrix representation of home and away team runs for table
+# matrix representation of home and away team runs for table
 homemat = np.array([[9] * 9, [8] * 9, [7] * 9, [6] * 9, [5] * 9, [4] * 9, [3] * 9, [2] * 9, [1] * 9])
 awayrow = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9])
 awaymat = np.array([awayrow] * 9)
@@ -50,13 +51,14 @@ niterations = 1000
 for index_home in range(9):
     for index_away in range(9):
         if homemat[index_home, index_away] != awaymat[index_home, index_away]:
-            probmat[index_home, index_away] = cornersimulator(float(homemat[index_home, index_away]), float(awaymat[index_home, index_away]), last_match.C_CS, niterations)       
+            probmat[index_home, index_away] = corner_spread(float(homemat[index_home, index_away]),
+                                                            float(awaymat[index_home, index_away]), last_match.C_CS,
+                                                            niterations)
 
-cornermat = DataFrame(probmat, index=range(9,0,-1), columns=range(1,10))
+cornermat = DataFrame(probmat, index=range(9, 0, -1), columns=range(1, 10))
 
-print last_match
-print '============================================================='
-print next_match
-print '============== ' + team_A + ' vs ' + team_B + ' =============='
-print cornermat
-
+print(last_match)
+print('=============================================================')
+print(next_match)
+print('============== ' + team_A + ' vs ' + team_B + ' ==============')
+print(cornermat)
