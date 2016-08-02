@@ -1,15 +1,9 @@
-*.py[co]
-*.sw[po]
-*.bak
-*.orig
-*~
-*.log
-*.egg-info
-.Rhistory
-.project
-.pydevproject
-.spyderworkspace
-venv/
-virtenv/
-dist/
-build/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Spyder project settings
+.idea/
+xanaenv/

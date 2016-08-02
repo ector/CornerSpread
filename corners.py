@@ -10,7 +10,7 @@ from pandas import DataFrame
 import pandas as pd
 import numpy as np
 from simulate import cornersimulator
-pd.set_option('precision',2)
+pd.set_option('precision', 2)
 
 # Read corner data
 date = 'Date'
@@ -59,3 +59,4 @@ print '============================================================='
 print next_match
 print '============== ' + team_A + ' vs ' + team_B + ' =============='
 print cornermat
+
